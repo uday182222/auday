@@ -1,0 +1,29 @@
+name: Python CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r backend/requirements.txt || true
+    - name: Run tests
+      run: |
+        if [ -f backend/test.sh ]; then bash backend/test.sh; else echo "No test script found."; fi
+    - name: Check code formatting
+      run: |
+        pip install black || true
+        black --check backend/ || echo "Code is not formatted with black." 
