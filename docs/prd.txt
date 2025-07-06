@@ -1,0 +1,335 @@
+# AUDAY - AI-Powered Medical Transcription and Clinical Assistant
+
+---
+
+## 1. PROJECT OVERVIEW
+
+**Project Name:** AUDAY - AI-Powered Medical Transcription and Clinical Assistant  
+**Mission Statement:** "Transcribe. Analyze. Prescribe."
+
+AUDAY is a full-stack AI-powered application for real-time transcription, summarization, and prescription generation from doctor-patient conversations. It integrates STT (Speech-to-Text), medical NLP, SOAP note generation, multilingual support, and dashboards for both doctors and patients.
+
+### Key Value Propositions:
+- Real-time transcription with >99% accuracy
+- AI-generated SOAP notes
+- Drug interaction–safe prescriptions
+- Multilingual communication
+- Complete patient/doctor dashboards
+- HIPAA-compliant architecture
+
+---
+
+## 2. WEB APPLICATION STRUCTURE
+
+### 2.1 Core Components:
+- Landing Page
+- Doctor Interface (Live Transcription, Medical Summary)
+- Patient Dashboard
+- Admin Panel
+- REST API (Flask/FastAPI)
+- Mobile App (Phase 2)
+
+### 2.2 Landing Page:
+- Hero text: "Transcribe. Analyze. Prescribe."
+- Signup/Login (Supabase Auth)
+- Responsive UI (React + TailwindCSS)
+- CTA: Transcribe Now, Upload Audio, View Dashboard
+- Testimonials and feature highlights
+- Pricing tiers
+
+---
+
+## 3. VOICE INPUT & TRANSCRIPTION
+
+### 3.1 Stack:
+- Primary: Whisper (local)
+- Backup: Gemini STT API
+- Formats: WAV, MP3, FLAC
+- Buffer: 30-sec real-time batching
+
+### 3.2 Flow:
+1. Mic/File input
+2. Buffer & segment
+3. Transcribe via Whisper
+4. Save to Supabase
+5. Trigger NLP pipeline
+6. Show live text to doctor
+
+### 3.3 QA:
+- Confidence scoring
+- Manual edit UI
+- Background noise reducer
+
+---
+
+## 4. MEDICAL NLP PIPELINE
+
+### 4.1 Components:
+- `scispacy` for medical NER
+- UMLS normalization
+- RxNorm API for drug data
+- Clinical-T5/Gemini for logic
+
+### 4.2 Extraction Tasks:
+- Symptoms + severity
+- Diagnosis & ICD-10
+- Allergy & med history
+- Vitals & measurements
+
+### 4.3 Output:
+- JSON with standardized terms
+- Entity confidence
+- Temporal logic
+- Demographic linking
+
+---
+
+## 5. SOAP NOTE GENERATOR
+
+### 5.1 Framework:
+**S** = Subjective (quotes, symptoms)  
+**O** = Objective (vitals, observations)  
+**A** = Assessment (diagnosis, risk)  
+**P** = Plan (prescription, follow-up)
+
+### 5.2 Generation:
+- Prompt chaining (Gemini/T5)
+- Feedback loop before approval
+- Version control
+
+---
+
+## 6. PRESCRIPTION GENERATOR
+
+### 6.1 Drug Pipeline:
+- RxNorm standardization
+- OpenFDA for alerts
+- Medscape dosing
+- Allergy cross-check
+
+### 6.2 Flow:
+1. Pull from SOAP note
+2. Gen prescriptions
+3. Check interactions
+4. Verify dosage
+5. Alert allergies
+6. Doctor approval
+
+### 6.3 Safety:
+- Real-time checks
+- Dose alerts
+- Pregnancy/kidney/liver warnings
+
+---
+
+## 7. MULTILINGUAL SUPPORT
+
+### 7.1 Translation:
+- Google Translate API / NLLB
+- Bidirectional translation
+- Store in English
+
+### 7.2 Languages (Phase 1):
+- Hindi, Tamil, Bengali, Telugu, Spanish, French
+
+### 7.3 Details:
+- Real-time consultation translation
+- Translated prescriptions
+- Medical term integrity
+
+---
+
+## 8. DASHBOARDS
+
+### 8.1 Patient:
+- Timeline of visits
+- Rx history + refills
+- Reports & scheduling
+- PDF export
+- Medication adherence
+
+### 8.2 Doctor:
+- Transcription log
+- SOAP & Rx access
+- Approve/edit AI outputs
+- Patient search
+- Analytics
+
+### 8.3 Tech:
+- React.js (Vercel)
+- Supabase DB
+- Chart.js/Recharts
+- Mobile-friendly
+
+---
+
+## 9. EXPORT REPORTS AS PDF
+
+### 9.1 Generation:
+- Libraries: `reportlab`, `pdfkit`, `fpdf`
+- Auto-save to Supabase
+- Shareable URLs
+- Custom templates
+
+### 9.2 Content:
+- SOAP note + Rx
+- Demographics
+- Doctor ID
+- QR for verification
+
+---
+
+## 10. MOBILE APP (PHASE 2)
+
+### 10.1 Features:
+- React Native + Expo
+- Voice input
+- View Rx + reports
+- Notifications
+- Offline access
+
+---
+
+## 11. USER ROLES & AUTH
+
+### 11.1 Roles:
+- Doctor: Full access
+- Patient: Limited view
+- Admin: Monitoring
+
+### 11.2 Auth:
+- Email/Password
+- Optional phone/MFA
+- JWT + RBAC
+
+### 11.3 Security:
+- Supabase/Firebase Auth
+- Flask-JWT/Supabase RLS
+- HIPAA-compliant storage
+- Audit logs
+
+---
+
+## 12. DEPLOYMENT STACK (FREE TIER)
+
+### 12.1 Frontend:
+- React (Vercel)
+- TailwindCSS
+
+### 12.2 Backend:
+- Flask/FastAPI (Render)
+- REST APIs
+- WebSockets
+
+### 12.3 DB & Storage:
+- Supabase Postgres
+- Supabase Storage
+
+### 12.4 AI Services:
+- Ollama (local LLM)
+- Gemini (backup)
+- Whisper (STT)
+
+### 12.5 DevOps:
+- GitHub + Actions
+- Notion for docs
+- GitHub Projects
+
+---
+
+## 13. FUTURE EXTENSIONS
+
+### 13.1 Advanced AI:
+- Fine-tune Clinical-T5
+- Custom NER
+- Predictive analytics
+
+### 13.2 Compliance:
+- HIPAA, HL7, FHIR
+- EMR integrations
+
+### 13.3 Functionality:
+- Offline STT
+- OCR for handwritten notes
+- Adherence analytics
+- Calendar integration
+- API access
+
+---
+
+## 14. MVP TIMELINE
+
+### Week 1–2:
+- Setup project + deployment
+- Whisper STT integration
+- Basic UI + Auth
+
+### Week 3–4:
+- NLP pipeline
+- UMLS/RxNorm
+- Symptom/diagnosis classification
+- ICD code prediction
+
+### Week 5:
+- SOAP note generator
+- Prescription logic
+- Drug interaction checks
+- Approval flow
+
+### Week 6–7:
+- Dashboards
+- PDF reports
+- Analytics
+- Notifications
+
+### Week 8:
+- Testing
+- Optimization
+- Security review
+- Final deploy
+
+---
+
+## 15. SUCCESS METRICS
+
+### 15.1 Technical:
+- >95% transcription accuracy
+- <30s SOAP generation
+- >90% Rx accuracy
+- >99.5% uptime
+
+### 15.2 UX:
+- Doctor usage rate
+- Patient satisfaction
+- Time saved
+- Fewer Rx errors
+
+### 15.3 Business:
+- Growth
+- Feature adoption
+- Retention
+- Support load
+
+---
+
+## 16. RISK MITIGATION
+
+### 16.1 Risks:
+- AI reliability
+- Privacy
+- Scale
+- Integrations
+
+### 16.2 Strategies:
+- Test coverage
+- HIPAA compliance
+- Modular architecture
+- Fallbacks for critical systems
+
+---
+
+## 17. CONCLUSION
+
+AUDAY reimagines clinical workflows through AI. By combining transcription, medical NLP, and intelligent prescriptions, it enables faster, safer, and more accessible healthcare. With a strong foundation and modular roadmap, AUDAY is built to scale into hospitals, telemedicine, and global health platforms.
+
+---
